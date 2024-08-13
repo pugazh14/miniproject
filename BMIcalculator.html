@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI CALCULATOR</title>
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: Arial, sans-serif;
+            color: #00695c;
+        }
+        h1 {
+            color: #004d40;
+        }
+        center {
+            display: block;
+            margin-top: 50px;
+        }
+        table {
+            margin: auto;
+            border-spacing: 15px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        td {
+            padding: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #004d40;
+            border-radius: 5px;
+        }
+        select {
+            padding: 5px;
+            border: 1px solid #004d40;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #004d40;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #00332e;
+        }
+        p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>BMI CALCULATOR</h1>
+        <form>
+        <table>
+            <tr>
+                <td><label for="weightInput">ENTER YOUR WEIGHT:</label></td>
+                <td><input type="text" id="weightInput" placeholder="Weight"></td>
+                <td>
+                    <select id="weightUnit">
+                        <option value="kg">kg</option>
+                        <option value="pounds">pounds</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="heightInput">ENTER YOUR HEIGHT:</label></td>
+                <td><input type="text" id="heightInput" placeholder="Height"></td>
+                <td>
+                    <select id="heightUnit">
+                        <option value="cm">cm</option>
+                        <option value="inches">inches</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="reset">CLEAR</button></td>
+                <td><button type="button" onclick="calculate_bmi()">CALCULATE BMI</button></td>
+            </tr>
+            <tr>
+                <td><label for="bmiResult">YOUR BMI IS:</label></td>
+                <td><p id="bmiResult"></p></td>
+            </tr>
+            <tr>
+                <td><label for="message">MESSAGE ABOUT YOUR BMI:</label></td>
+                <td><p id="message"></p></td>
+            </tr>
+        </table>
+        </form>
+    </center>
+    <script>
+        function calculate_bmi() {
+            let height = parseFloat(document.getElementById("heightInput").value);
+            let weight = parseFloat(document.getElementById("weightInput").value);
+            let heightUnit = document.getElementById("heightUnit").value;
+            let weightUnit = document.getElementById("weightUnit").value;
+
+            if (heightUnit === "inches") {
+                height = height * 0.0254;
+            } else {
+                height = height / 100;
+            }
+
+            if (weightUnit === "pounds") {
+                weight = weight * 0.453592;
+            }
+
+            let bmi = weight / (height * height);
+            document.getElementById("bmiResult").innerText = bmi.toFixed(2);
+
+            if (bmi <= 24.9) {
+                document.getElementById("message").innerText = "YOU ARE UNDERWEIGHT";
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                document.getElementById("message").innerText = "YOU ARE HEALTHY WEIGHT";
+            } else {
+                document.getElementById("message").innerText = "YOU ARE OVERWEIGHT";
+            }
+        }
+    </script>
+</body>
+</html>
